@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hamburger-menu-1</title>
+</head>
+<body>
+    <header>
+        <div class="hamburger">
+            <div class="hamburger-lines" onclick="updateBtnStatus()">
+                <span id="span1"></span>
+                <span id="span2"></span>
+                <span id="span3"></span>
+            </div>
+            <div class="menu-list" id="menuView" onClick="updateMenuView()">
+                <ul>
+                    <li>
+                        <span id="menu1" onClick="goToPage('menu1')">menu 1</span>
+                    </li>
+                    <li>
+                        <span id="menu2" onClick="goToPage('menu2')">menu 2</span>
+                    </li>
+                    <li>
+                        <span id="menu3" onClick="goToPage('menu3')">menu 3</span>
+                    </li>
+                    <li>
+                        <span id="logout" onClick="goToPage('logout')">logout</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+</body>
+<style>
+    .hamburger-lines {
+        width: 64px;
+        height: 64px;
+        background-color: #222000;
+        position: fixed;
+        top: 8px;
+        right: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .hamburger-lines span {
+        width: 38px;
+        height: 4px;
+        display: block;
+        background-color: white;
+        transition: 0.3s ease;
+        margin: 5px 0;
+        
+    }
+    .hamburger-lines #span1 {
+        transform-origin: left;
+    }
+    .hamburger-lines #span3 {
+        transform-origin: left;
+    }
+
+    .menu-list {
+        width: calc(100% - 16px);
+        height: auto;
+        position: fixed;
+        top: 72px;
+        background-color: #222000;
+        transform: scaleY(0);
+        transition: transform  0.3s ease;
+        transform-origin: top;
+    }
+    .menu-list.open {
+        transform: scaleY(1);
+    }
+
+    .menu-list ul {
+        padding: 0 16px;
+    }
+
+    .menu-list ul li {
+        border-bottom: solid 1px #ffffff;
+        list-style: none;
+    }
+
+    .menu-list ul li span {
+        display: block;
+        width: 100%;
+        font-size: 15px;
+        box-sizing: border-box;
+        color:#ffffff;
+        text-decoration: none;
+        padding: 16px 16px 16px 8px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+    .menu-list ul li span:hover {
+        background-color: black;
+        transition: background-color 1s ease;
+    }
+
+    .menu-list ul li span::after {
+        content: '\2192';  
+    }
+</style>
+<script>
+    let btnStatus = false
+    const span1 = document.getElementById('span1')
+    const span2 = document.getElementById('span2')
+    const span3 = document.getElementById('span3')
+    const menuView = document.getElementById('menuView')
+
+    function updateBtnStatus () {
+        btnStatus = !btnStatus
+        updateHamburgerUi(btnStatus)
+    }
+    
+    function updateHamburgerUi(status) {
+        if (status) {
+            span1.style.transform = 'rotate(45deg) '
+            span1.style.marginLeft = '10px'
+            span2.style.opacity = '0'
+            span3.style.transform = 'rotate(-45deg) '
+            span3.style.marginLeft = '10px'
+            menuView.classList.add('open');
+        } else {
+            span1.style.transform = 'rotate(0)'
+            span1.style.marginLeft = '0'
+            span2.style.opacity = '100'
+            span3.style.transform = 'rotate(0)'
+            span3.style.marginLeft = '0'
+            menuView.classList.remove('open');
+        }
+    }
+
+    function goToPage(menu) {
+        if (menu === 'logout') {
+            alert('ログアウト')
+        } else {
+            alert(menu + 'ページに遷移されます。')
+        }
+    }
+</script>
+</html>
